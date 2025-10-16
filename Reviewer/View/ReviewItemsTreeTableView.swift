@@ -15,23 +15,35 @@ public struct ReviewItemsTreeTableView: View {
     
     @State private var reviewItems : [ReviewItem]
     @State private var selection: ReviewItem.ID? = nil
+    @State private var sortOrder = [KeyPathComparator(\ReviewItem.name)]
     
     public var body: some View {
         NavigationStack {
             
-            Table(of: ReviewItem.self,   selection: $selection, columns: {
+            Table(of: ReviewItem.self,   selection: $selection, sortOrder: $sortOrder, columns: {
                 
-                TableColumn("Name") { item in
+                TableColumn("Name" , value: \.name) { item in
                     Text("\(item.name)")
+                        .font(.title2)
                         .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
                 }
                 
-                TableColumn("Comment") { item in
+                TableColumn("Comment", value: \.comment  ) { item in
                     Text("\(item.comment)")
+                        .font(.title2)
                 }
                 
-                TableColumn("Note") { item in
+                TableColumn("Note", value: \.note) { item in
                     Text("\(item.note)")
+                        .font(.title2)
+                }
+                
+                TableColumn("State") { item in
+                    HStack {
+                        CheckStateIndicatorView(state: item.state)
+                        Text("\(item.state.description)")
+                            .font(.title2)
+                    }
                 }
             }, rows: {
                 OutlineGroup(reviewItems, children: \.children) { item in
@@ -41,6 +53,10 @@ public struct ReviewItemsTreeTableView: View {
             .tableStyle(InsetTableStyle(alternatesRowBackgrounds: true))
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            .onChange(of: sortOrder) { oldValue, newValue in
+                reviewItems.sort(using: newValue)
+            }
         }
     }
 }

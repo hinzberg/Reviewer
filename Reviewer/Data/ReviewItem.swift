@@ -20,6 +20,7 @@ public class ReviewItem: Identifiable {
     public var name: String = ""
     public var comment: String = ""
     public var note: String = ""
+    public var state : CheckState = .Unchecked
     public var children: [ReviewItem]? = nil
     public var parent : ReviewItem? = nil
     
