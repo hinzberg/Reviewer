@@ -9,9 +9,16 @@ import SwiftUI
 
 struct CheckStateIndicatorView: View {
     
-    @State public var state : CheckState
+    private var state : CheckState
+    
+    init(state: CheckState) {
+        self.state = state
+    }
     
     private var colorForState: Color {
+        
+        print(self.state.description)
+        
         switch state {
         case .Review:
             return .orange
@@ -27,10 +34,10 @@ struct CheckStateIndicatorView: View {
     var body: some View {
         Image(systemName: "circle.fill")
             .font(.title2)
-            .foregroundColor(colorForState)
+            .foregroundStyle(colorForState, colorForState)
     }
 }
 
 #Preview {
-    CheckStateIndicatorView(state: .Unchecked)
+    CheckStateIndicatorView(state: .Failed)
 }

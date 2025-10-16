@@ -5,14 +5,13 @@
 import Foundation
 
 public enum CheckState: String, Codable, CaseIterable, Hashable {
-    case Unchecked
+    case Ok
     case Review
     case Failed
-    case Ok
+    case Unchecked
     
     var description : String {
         switch self {
-            // Use Internationalization, as appropriate.
         case .Ok: return "OK"
         case .Failed: return "Failed"
         case .Unchecked: return "Unchecked"

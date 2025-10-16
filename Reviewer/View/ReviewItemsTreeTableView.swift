@@ -17,6 +17,8 @@ public struct ReviewItemsTreeTableView: View {
     @State private var selection: ReviewItem.ID? = nil
     @State private var sortOrder = [KeyPathComparator(\ReviewItem.name)]
     
+    @State private var selectedOption: CheckState = .Unchecked
+    
     public var body: some View {
         NavigationStack {
             
@@ -39,10 +41,22 @@ public struct ReviewItemsTreeTableView: View {
                 }
                 
                 TableColumn("State") { item in
-                    HStack {
-                        CheckStateIndicatorView(state: item.state)
-                        Text("\(item.state.description)")
-                            .font(.title2)
+                    Menu {
+                        ForEach(CheckState.allCases, id: \.rawValue) { item in
+                            Button(action: { selectedOption = item }) {
+                                HStack {
+                                    CheckStateIndicatorView(state: item)
+                                    Text("\(item.description)")
+                                        .font(.title2)
+                                }
+                            }
+                        }
+                    } label: {
+                        HStack {
+                            CheckStateIndicatorView(state: item.state)
+                            Text("\(item.state.description)")
+                                .font(.title2)
+                        }
                     }
                 }
             }, rows: {
