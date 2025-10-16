@@ -1,24 +1,10 @@
-//
-//  ContentView.swift
-//  Reviewer
-//
-//  Created by Holger Hinzberg on 16.10.25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    
+    @Environment(ReviewItemsRepository.self) private var repository
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        ReviewItemsTreeTableView(reviewItems: repository.items)
     }
-}
-
-#Preview {
-    ContentView()
 }

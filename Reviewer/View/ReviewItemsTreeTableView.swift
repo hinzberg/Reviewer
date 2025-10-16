@@ -1,5 +1,5 @@
 //
-//  ResizableTreeTableView.swift
+//  ReviewItemsTreeTableView.swift
 //  Reviewer
 //
 //  Created by Holger Hinzberg on 16.10.25.
@@ -7,72 +7,41 @@
 
 import SwiftUI
 
-struct ResizableTreeTableView: View {
+public struct ReviewItemsTreeTableView: View {
     
-    let data: [ReviewItem]
+    public init(reviewItems: [ReviewItem]) {
+        self._reviewItems = State(initialValue: reviewItems)
+    }
     
-    // Track the width of each column
-    @State private var nameWidth: CGFloat = 200
-    @State private var sizeWidth: CGFloat = 200
-    @State private var modifiedWidth: CGFloat = 200
+    @State private var reviewItems : [ReviewItem]
+    @State private var selection: ReviewItem.ID? = nil
     
-    var body: some View {
-        
-        VStack(alignment: .leading) {
-            // MARK: Header
-            HStack(spacing: 0) {
-                headerCell(title: "Name", width: $nameWidth, alignment: .leading)
-                headerDivider(width: $nameWidth)
-                headerCell(title: "Comment", width: $sizeWidth, alignment: .leading)
-                headerDivider(width: $sizeWidth)
-                headerCell(title: "Note", width: $modifiedWidth, alignment: .leading)
-            }
-            .font(.headline)
-            .background(Color.gray.opacity(0.1))
-            .frame(height: 28)
+    public var body: some View {
+        NavigationStack {
             
-            // MARK: Rows
-            OutlineGroup(data, children: \.children) { node in
-                HStack(spacing: 0) {
-                    Text(node.name)
-                        .frame(width: nameWidth, alignment: .leading)
-                    Divider().opacity(0)
-                    Text(node.comment)
-                        .frame(width: sizeWidth, alignment: .leading)
-                    Divider().opacity(0)
-                    Text(node.note)
-                        .frame(width: modifiedWidth, alignment: .leading)
+            Table(of: ReviewItem.self,   selection: $selection, columns: {
+                
+                TableColumn("Name") { item in
+                    Text("\(item.name)")
+                        .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
                 }
-                .font(.body)
-                .padding(.vertical, 2)
-            }
+                
+                TableColumn("Comment") { item in
+                    Text("\(item.comment)")
+                }
+                
+                TableColumn("Note") { item in
+                    Text("\(item.note)")
+                }
+            }, rows: {
+                OutlineGroup(reviewItems, children: \.children) { item in
+                    TableRow(item)
+                }
+            })
+            .tableStyle(InsetTableStyle(alternatesRowBackgrounds: true))
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .padding(4)
-        .background(Color(NSColor.windowBackgroundColor))
-    }
-    
-    // MARK: Header cell
-    private func headerCell(title: String, width: Binding<CGFloat>, alignment: Alignment = .leading) -> some View {
-        Text(title)
-            .font(.headline)
-            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
-            .frame(width: width.wrappedValue, alignment: alignment)
-            .background(Color(NSColor.underPageBackgroundColor))
-    }
-    
-    // MARK: Divider with drag gesture
-    private func headerDivider(width: Binding<CGFloat>) -> some View {
-        Rectangle()
-            .fill(Color.gray.opacity(0.2))
-            .frame(width: 2)
-            .gesture(
-                DragGesture()
-                    .onChanged { value in
-                        width.wrappedValue += value.translation.width
-                    }
-            )
-            .onHover { hovering in
-                NSCursor.resizeLeftRight.set()
-            }
     }
 }
+
