@@ -4,6 +4,7 @@
 
 import SwiftUI
 
+@Observable
 public class ReviewItem: Identifiable {
     
     init () {
@@ -24,11 +25,16 @@ public class ReviewItem: Identifiable {
     public var children: [ReviewItem]? = nil
     public var parent : ReviewItem? = nil
     
-    public func addChild (item : ReviewItem) {
+    public func addChild (item : ReviewItem) {so
         if self.children == nil {
             self.children = []
         }
         item.parent = self
         self.children!.append(item)
+    }
+    
+    public func UpdateState(updateState : CheckState) {
+        self.state = updateState
+        // TODO: Update Children and Parents
     }
 }

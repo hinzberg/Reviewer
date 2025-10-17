@@ -16,9 +16,6 @@ struct CheckStateIndicatorView: View {
     }
     
     private var colorForState: Color {
-        
-        print(self.state.description)
-        
         switch state {
         case .Review:
             return .orange

@@ -41,23 +41,7 @@ public struct ReviewItemsTreeTableView: View {
                 }
                 
                 TableColumn("State") { item in
-                    Menu {
-                        ForEach(CheckState.allCases, id: \.rawValue) { item in
-                            Button(action: { selectedOption = item }) {
-                                HStack {
-                                    CheckStateIndicatorView(state: item)
-                                    Text("\(item.description)")
-                                        .font(.title2)
-                                }
-                            }
-                        }
-                    } label: {
-                        HStack {
-                            CheckStateIndicatorView(state: item.state)
-                            Text("\(item.state.description)")
-                                .font(.title2)
-                        }
-                    }
+                    CheckStateChangeMenu(item: item)
                 }
             }, rows: {
                 OutlineGroup(reviewItems, children: \.children) { item in
