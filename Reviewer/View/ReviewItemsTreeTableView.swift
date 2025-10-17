@@ -9,8 +9,8 @@ import SwiftUI
 
 public struct ReviewItemsTreeTableView: View {
     
-    public init(reviewItems: [ReviewItem]) {
-        self._reviewItems = State(initialValue: reviewItems)
+    public init(repository: ReviewItemsRepository) {
+        self._reviewItems = State(initialValue: repository.items)
     }
     
     @State private var reviewItems : [ReviewItem]
@@ -48,7 +48,7 @@ public struct ReviewItemsTreeTableView: View {
                     TableRow(item)
                 }
             })
-            .tableStyle(InsetTableStyle(alternatesRowBackgrounds: true))
+            .tableStyle(InsetTableStyle(alternatesRowBackgrounds: false))
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             

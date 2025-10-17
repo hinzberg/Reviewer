@@ -5,10 +5,8 @@ struct ContentView: View {
     @Environment(ReviewItemsRepository.self) private var repository
     @State private var isShowingInspector = false
     
-
-    
     var body: some View {
-        ReviewItemsTreeTableView(reviewItems: repository.items)
+        ReviewItemsTreeTableView(repository: repository)
             .toolbar (id: "main") {
                 ToolbarItem(id: "inspector") {
                     Button(action: {

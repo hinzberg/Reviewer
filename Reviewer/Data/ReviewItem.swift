@@ -32,9 +32,4 @@ public class ReviewItem: Identifiable {
         item.parent = self
         self.children!.append(item)
     }
-    
-    public func UpdateState(updateState : CheckState) {
-        self.state = updateState
-        // TODO: Update Children and Parents
-    }
 }
