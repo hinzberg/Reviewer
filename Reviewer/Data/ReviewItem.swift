@@ -25,7 +25,7 @@ public class ReviewItem: Identifiable {
     public var children: [ReviewItem]? = nil
     public var parent : ReviewItem? = nil
     
-    public func addChild (item : ReviewItem) {so
+    public func addChild (item : ReviewItem) {
         if self.children == nil {
             self.children = []
         }
