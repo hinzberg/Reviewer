@@ -24,6 +24,7 @@ public class ReviewItem: Identifiable {
     public var state : CheckState = .Unchecked
     public var children: [ReviewItem]? = nil
     public var parent : ReviewItem? = nil
+    public var isExpanded: Bool = false
     
     public func addChild (item : ReviewItem) {
         if self.children == nil {

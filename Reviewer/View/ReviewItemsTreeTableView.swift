@@ -16,7 +16,6 @@ public struct ReviewItemsTreeTableView: View {
     @State private var reviewItems : [ReviewItem]
     @State private var selection: ReviewItem.ID? = nil
     @State private var sortOrder = [KeyPathComparator(\ReviewItem.name)]
-    
     @State private var selectedOption: CheckState = .Unchecked
     
     public var body: some View {
@@ -51,7 +50,6 @@ public struct ReviewItemsTreeTableView: View {
             .tableStyle(InsetTableStyle(alternatesRowBackgrounds: false))
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
             .onChange(of: sortOrder) { oldValue, newValue in
                 reviewItems.sort(using: newValue)
             }

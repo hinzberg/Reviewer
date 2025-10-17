@@ -11,11 +11,13 @@ import SwiftUI
 struct ReviewerApp: App {
     
     var reviewRepository = ReviewItemsRepository()
+    @StateObject var appState = ApplicationState()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(reviewRepository)
+                .environmentObject(appState)
         }
     }
 }
