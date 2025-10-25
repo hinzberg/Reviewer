@@ -6,13 +6,13 @@ import SwiftUI
 
 public struct CheckStateChangeMenu: View {
     
-    let checkManager = CheckStateManager()
+    @Environment(ReviewItemsRepository.self) private var repository
     var item : ReviewItem
     
     public var body: some View {
         Menu {
             ForEach(CheckState.allCases, id: \.rawValue) { caseValue in
-                Button(action: { checkManager.UpdateStateAndFamily(item: item, updateState: caseValue) }) {
+                Button(action: { repository.UpdateStateAndFamily(item: item, updateState: caseValue) }) {
                     HStack {
                         CheckStateIndicatorView(state: caseValue)
                         Text("\(caseValue.description)")

@@ -18,13 +18,13 @@ struct CheckStateIndicatorView: View {
     private var colorForState: Color {
         switch state {
         case .Review:
-            return .orange
+            return Color.Review
         case .Ok:
-            return .green
+            return Color.Ok
         case .Failed:
-            return .red
+            return Color.Failed
         case .Unchecked:
-            return .gray
+            return Color.Unchecked
         }
     }
         
@@ -38,3 +38,5 @@ struct CheckStateIndicatorView: View {
 #Preview {
     CheckStateIndicatorView(state: .Failed)
 }
+
+

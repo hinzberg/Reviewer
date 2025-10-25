@@ -28,7 +28,7 @@ struct ContentView: View {
             .inspector(isPresented: $appState.isShowingInspector)
             {
                 InspectorView()
-                    .inspectorColumnWidth(min: 150, ideal: 150, max: 300)
+                    .inspectorColumnWidth(min: 220, ideal: 220, max: 220)
                     .interactiveDismissDisabled()
             }
     }

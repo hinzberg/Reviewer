@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InspectorView: View {
     var body: some View {
-        Text("This is the Inspector")
+        ReviewItemsCountView()
     }
 }
 

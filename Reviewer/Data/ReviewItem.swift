@@ -33,4 +33,17 @@ public class ReviewItem: Identifiable {
         item.parent = self
         self.children!.append(item)
     }
+
+    func itemsRecursively(matching state: CheckState) -> [ReviewItem] {
+        var result: [ReviewItem] = []
+        if self.state == state {
+            result.append(self)
+        }
+        if let children = self.children {
+            for child in children {
+                result.append(contentsOf: child.itemsRecursively(matching: state))
+            }
+        }
+        return result
+    }
 }

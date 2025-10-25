@@ -9,6 +9,6 @@ import SwiftUI
 import Combine
 
 public class ApplicationState: ObservableObject {
-    @Published var isShowingInspector = false
+    @Published var isShowingInspector = true
     @Published var expandAll = false
 }

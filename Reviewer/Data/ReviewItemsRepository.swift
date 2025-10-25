@@ -9,6 +9,11 @@ import Observation
 public class ReviewItemsRepository {
     
     public var items : [ReviewItem]
+    public var okItemsCount = 0;
+    public var reviewItemsCount = 0;
+    public var failedtemsCount = 0;
+    public var uncheckedItemsCount = 0;
+    private let checkManager = CheckStateManager()
     
     init () {
         items = []
@@ -26,11 +31,19 @@ public class ReviewItemsRepository {
         item2.addChild(item: ReviewItem(name: "Paris.png", comment: "Comment 2.2", note:  "Oct 2"))
         item2.addChild(item: ReviewItem(name: "London.png", comment: "Comment 2.3", note:  "Oct 2"))
         items.append(item2)
+        
+        updateItemsCount()
     }
     
+    public func updateItemsCount()  {
+        self.failedtemsCount = items.flatMap { $0.itemsRecursively(matching: .Failed)}.count
+        self.okItemsCount = items.flatMap { $0.itemsRecursively(matching: .Ok)}.count
+        self.reviewItemsCount = items.flatMap { $0.itemsRecursively(matching: .Review)}.count
+        self.uncheckedItemsCount = items.flatMap { $0.itemsRecursively(matching: .Unchecked)}.count
+    }
     
-
-    
-    
+    public func UpdateStateAndFamily(item : ReviewItem,  updateState : CheckState) {
+        self.checkManager.UpdateStateAndFamily(item: item, updateState: updateState)
+        self.updateItemsCount( )
+    }
 }
-
