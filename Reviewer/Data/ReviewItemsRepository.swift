@@ -13,6 +13,7 @@ public class ReviewItemsRepository {
     public var reviewItemsCount = 0;
     public var failedtemsCount = 0;
     public var uncheckedItemsCount = 0;
+    public var chartDatas = [ReviewChartData]()
     private let checkManager = CheckStateManager()
     
     init () {
@@ -33,17 +34,34 @@ public class ReviewItemsRepository {
         items.append(item2)
         
         updateItemsCount()
+        updateChartData()
     }
     
-    public func updateItemsCount()  {
+    private func updateItemsCount()  {
         self.failedtemsCount = items.flatMap { $0.itemsRecursively(matching: .Failed)}.count
         self.okItemsCount = items.flatMap { $0.itemsRecursively(matching: .Ok)}.count
         self.reviewItemsCount = items.flatMap { $0.itemsRecursively(matching: .Review)}.count
         self.uncheckedItemsCount = items.flatMap { $0.itemsRecursively(matching: .Unchecked)}.count
     }
     
+    private func updateChartData() {
+        
+        let okPercent = Double(self.items.count) / 100.0 * Double(self.okItemsCount)
+        let failedPercent = Double(self.items.count) / 100.0 * Double(self.failedtemsCount)
+        let reviewPercent = Double(self.items.count) / 100.0 * Double(self.reviewItemsCount)
+        let uncheckedPercent = Double(self.items.count) / 100.0 * Double(self.uncheckedItemsCount)
+        
+        self.chartDatas = [
+            .init(title: "Ok", value: okPercent),
+            .init(title: "Review", value: reviewPercent),
+            .init(title: "Failed", value: failedPercent),
+            .init(title: "Unchecked", value: uncheckedPercent)
+        ]
+    }
+    
     public func UpdateStateAndFamily(item : ReviewItem,  updateState : CheckState) {
         self.checkManager.UpdateStateAndFamily(item: item, updateState: updateState)
         self.updateItemsCount( )
+        self.updateChartData()
     }
 }

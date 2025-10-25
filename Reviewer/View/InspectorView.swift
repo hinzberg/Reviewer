@@ -9,7 +9,13 @@ import SwiftUI
 
 struct InspectorView: View {
     var body: some View {
-        ReviewItemsCountView()
+        VStack {
+            ReviewItemsCountChartView()
+                .frame(width: 170, height: 170)
+               .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0) )
+            ReviewItemsCountView()
+            Spacer()
+        }
     }
 }
 
