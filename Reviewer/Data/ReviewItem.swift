@@ -6,7 +6,7 @@ import SwiftUI
 
 @Observable
 public class ReviewItem: Identifiable {
-
+    
     public let id = UUID()
     public var name: String = ""
     public var description: String = ""
@@ -15,7 +15,7 @@ public class ReviewItem: Identifiable {
     public var children: [ReviewItem]? = nil
     public var parent : ReviewItem? = nil
     public var imageName : String = ""
-        
+    
     init () {
     }
     
@@ -39,7 +39,7 @@ public class ReviewItem: Identifiable {
         item.parent = self
         self.children!.append(item)
     }
-
+    
     func itemsRecursively(matching state: CheckState) -> [ReviewItem] {
         var result: [ReviewItem] = []
         if self.state == state {
@@ -48,6 +48,18 @@ public class ReviewItem: Identifiable {
         if let children = self.children {
             for child in children {
                 result.append(contentsOf: child.itemsRecursively(matching: state))
+            }
+        }
+        return result
+    }
+    
+    func itemsRecursively() -> [ReviewItem] {
+        var result: [ReviewItem] = []
+        result.append(self)
+        
+        if let children = self.children {
+            for child in children {
+                result.append(contentsOf: child.itemsRecursively())
             }
         }
         return result

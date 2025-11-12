@@ -75,4 +75,12 @@ public class ReviewItemsRepository {
         self.updateItemsCount( )
         self.updateChartData()
     }
+    
+    public func getItem(byId : ReviewItem.ID?) -> ReviewItem? {
+        guard byId != nil else {
+            return nil
+        }
+        let allItems = items.flatMap{ $0.itemsRecursively() }
+        return allItems.first { $0.id == byId }
+    }
 }

@@ -11,10 +11,11 @@ public struct ReviewItemsTreeTableView: View {
     
     @State private var reviewItems : [ReviewItem]
     @State private var selection: ReviewItem.ID? = nil
+    @State private var selectedItem : ReviewItem? = nil
     @State private var sortOrder = [KeyPathComparator(\ReviewItem.name)]
     @State private var selectedOption: CheckState = .Unchecked
     @State private var repository : ReviewItemsRepository
-
+    
     public init(repository: ReviewItemsRepository) {
         self._reviewItems = State(initialValue: repository.items)
         self.repository = repository
@@ -64,6 +65,10 @@ public struct ReviewItemsTreeTableView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .onChange(of: sortOrder) { oldValue, newValue in
                 reviewItems.sort(using: newValue)
+            }
+            .onChange(of: selection) { oldValue, newValue in
+                self.selectedItem = self.repository.getItem(byId: newValue)
+                print("Selection changed to: \(self.selectedItem?.name ?? "nil")")
             }
         }
     }
