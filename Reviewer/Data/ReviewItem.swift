@@ -9,8 +9,8 @@ public class ReviewItem: Identifiable {
 
     public let id = UUID()
     public var name: String = ""
-    public var comment: String = ""
-    public var note: String = ""
+    public var description: String = ""
+    public var userComment: String = ""
     public var state : CheckState = .Unchecked
     public var children: [ReviewItem]? = nil
     public var parent : ReviewItem? = nil
@@ -19,16 +19,16 @@ public class ReviewItem: Identifiable {
     init () {
     }
     
-    init(name: String, comment: String, note: String) {
+    init(name: String, userComment: String, description: String) {
         self.name = name
-        self.comment = comment
-        self.note = note
+        self.userComment = userComment
+        self.description = description
     }
     
-    init(name: String, comment: String, note: String, image : String) {
+    init(name: String, userComment: String, description: String, image : String) {
         self.name = name
-        self.comment = comment
-        self.note = note
+        self.userComment = userComment
+        self.description = description
         self.imageName = image
     }
     

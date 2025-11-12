@@ -19,30 +19,29 @@ public class ReviewItemsRepository {
     init () {
         items = []
                 
-        let item1 = ReviewItem(name: "Onboarding", comment:  "Comment 1", note: "Oct 10", image: "clock.badge.airplane.fill")
-        item1.addChild(item: ReviewItem(name: "Onboarding Sub 1", comment:  "Comment 1.1", note: "OK"))
-        item1.addChild(item: ReviewItem(name: "Onboarding Sub 2", comment:  "Comment 1.2", note: "Need update"))
+        let item1 = ReviewItem(name: "Onboarding", userComment:  "You have to love this!", description: "It all starts here", image: "clock.badge.airplane.fill")
+        item1.addChild(item: ReviewItem(name: "Onboarding Sub 1", userComment:  "", description: "More of the same"))
+        item1.addChild(item: ReviewItem(name: "Onboarding Sub 2", userComment:  "", description: "Here we go"))
         items.append(item1)
         
-        let item2  = ReviewItem(name: "Technical Inspection", comment: "Comment 2", note: "Oct 8", image: "gearshape")
-        item2.addChild(item: ReviewItem(name: "Vacation.png", comment: "Comment 2.1", note:  "Oct 2"))
-        item2.addChild(item: ReviewItem(name: "Paris.png", comment: "Comment 2.2", note:  "Oct 2"))
-        item2.addChild(item: ReviewItem(name: "London.png", comment: "Comment 2.3", note:  "Oct 2"))
-
-        let subitem2 = ReviewItem(name: "Maintainance", comment:  "This always fails", note: "Mandatory Checks", image: "wrench.and.screwdriver.fill")
-        subitem2.addChild(item: ReviewItem(name: "Maintainance 1", comment: "", note:  "Check Wings"))
-        subitem2.addChild(item: ReviewItem(name: "Maintainance 2", comment: "", note:  "Check Engines"))
+        let item2  = ReviewItem(name: "Technical Inspection", userComment: "", description: "Just do something", image: "gearshape")
+        item2.addChild(item: ReviewItem(name: "Check 1", userComment: "", description:  ""))
+        item2.addChild(item: ReviewItem(name: "Check 2", userComment: "", description:  ""))
+  
+        let subitem2 = ReviewItem(name: "Maintainance", userComment:  "This always fails!", description: "Mandatory Checks", image: "wrench.and.screwdriver.fill")
+        subitem2.addChild(item: ReviewItem(name: "Maintainance 1", userComment: "", description:  "Check Wings"))
+        subitem2.addChild(item: ReviewItem(name: "Maintainance 2", userComment: "", description:  "Check Engines"))
         item2.addChild(item: subitem2)
         items.append(item2)
         
-        let item3  = ReviewItem(name: "Flight", comment: "Comment 2", note: "Oct 8", image: "airplane")
-        item3.addChild(item: ReviewItem(name: "Flight Sub 1", comment: "", note:  ""))
-        item3.addChild(item: ReviewItem(name: "Flight Sub 2", comment: "", note:  ""))
+        let item3  = ReviewItem(name: "Flight", userComment: "Far above the world", description: "Am I sitting in a tin can", image: "airplane")
+        item3.addChild(item: ReviewItem(name: "Flight Sub 1", userComment: "", description:  ""))
+        item3.addChild(item: ReviewItem(name: "Flight Sub 2", userComment: "", description:  ""))
         items.append(item3)
         
-        let item4  = ReviewItem(name: "Arrival", comment: "Comment 2", note: "Oct 8", image: "airplane.arrival")
-        item4.addChild(item: ReviewItem(name: "Arrival Sub 1", comment: "", note:  ""))
-        item4.addChild(item: ReviewItem(name: "Arrival Sub 2", comment: "", note:  ""))
+        let item4  = ReviewItem(name: "Arrival", userComment: "", description: "Prepare for landing", image: "airplane.arrival")
+        item4.addChild(item: ReviewItem(name: "Arrival Sub 1", userComment: "", description:  ""))
+        item4.addChild(item: ReviewItem(name: "Arrival Sub 2", userComment: "", description:  ""))
         items.append(item4)
         
         updateItemsCount()

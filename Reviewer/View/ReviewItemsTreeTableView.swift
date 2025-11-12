@@ -40,17 +40,17 @@ public struct ReviewItemsTreeTableView: View {
                             .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
                     }
                 }
-                
-                TableColumn("Comment", value: \.comment  ) { item in
-                    Text("\(item.comment)")
+
+                TableColumn("Description", value: \.description) { item in
+                    Text("\(item.description)")
                         .font(.title2)
                 }
                 
-                TableColumn("Note", value: \.note) { item in
-                    Text("\(item.note)")
+                TableColumn("Comment", value: \.userComment  ) { item in
+                    Text("\(item.userComment)")
                         .font(.title2)
                 }
-               
+                
                 TableColumn("State") { item in
                     CheckStateChangeMenu(repository: repository, item: item)
                 }
