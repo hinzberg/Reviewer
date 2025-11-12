@@ -6,13 +6,20 @@ import SwiftUI
 
 public struct CheckStateChangeMenu: View {
     
-    @Environment(ReviewItemsRepository.self) private var repository
     var item : ReviewItem
+    var repository : ReviewItemsRepository
+    // NOTE: This will crash when you take the repository from the enviroment but it will only
+    // crash when closing the tree node. This is the reason the repository is passed as a parameter
+    
+    init(repository: ReviewItemsRepository, item: ReviewItem) {
+        self.repository = repository
+        self.item = item
+    }
     
     public var body: some View {
         Menu {
             ForEach(CheckState.allCases, id: \.rawValue) { caseValue in
-                Button(action: { repository.UpdateStateAndFamily(item: item, updateState: caseValue) }) {
+                Button(action: { self.repository.UpdateStateAndFamily(item: item, updateState: caseValue) }) {
                     HStack {
                         CheckStateIndicatorView(state: caseValue)
                         Text("\(caseValue.description)")

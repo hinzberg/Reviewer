@@ -9,6 +9,7 @@ struct ContentView: View {
         
         ReviewItemsTreeTableView(repository: repository)
             .toolbar (id: "main") {
+                /*
                 ToolbarItem(id: "expand") {
                     Button(action: {
                         appState.expandAll.toggle()
@@ -16,7 +17,7 @@ struct ContentView: View {
                         Label("Expand all", systemImage: "list.bullet.indent")
                     }
                 }
-                
+                */
                 ToolbarItem(id: "inspector") {
                     Button(action: {
                         appState.isShowingInspector.toggle()

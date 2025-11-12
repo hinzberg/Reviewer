@@ -9,14 +9,16 @@ import SwiftUI
 
 public struct ReviewItemsTreeTableView: View {
     
-    public init(repository: ReviewItemsRepository) {
-        self._reviewItems = State(initialValue: repository.items)
-    }
-    
     @State private var reviewItems : [ReviewItem]
     @State private var selection: ReviewItem.ID? = nil
     @State private var sortOrder = [KeyPathComparator(\ReviewItem.name)]
     @State private var selectedOption: CheckState = .Unchecked
+    @State private var repository : ReviewItemsRepository
+
+    public init(repository: ReviewItemsRepository) {
+        self._reviewItems = State(initialValue: repository.items)
+        self.repository = repository
+    }
     
     public var body: some View {
         NavigationStack {
@@ -24,9 +26,19 @@ public struct ReviewItemsTreeTableView: View {
             Table(of: ReviewItem.self,   selection: $selection, sortOrder: $sortOrder, columns: {
                 
                 TableColumn("Name" , value: \.name) { item in
-                    Text("\(item.name)")
-                        .font(.title2)
-                        .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
+                    HStack {
+                        if (item.imageName != "")
+                        {
+                            Image(systemName: item.imageName)
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
+                        }
+                        
+                        Text("\(item.name)")
+                            .font(.title2)
+                            .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
+                    }
                 }
                 
                 TableColumn("Comment", value: \.comment  ) { item in
@@ -38,9 +50,9 @@ public struct ReviewItemsTreeTableView: View {
                     Text("\(item.note)")
                         .font(.title2)
                 }
-                
+               
                 TableColumn("State") { item in
-                    CheckStateChangeMenu(item: item)
+                    CheckStateChangeMenu(repository: repository, item: item)
                 }
             }, rows: {
                 OutlineGroup(reviewItems, children: \.children) { item in

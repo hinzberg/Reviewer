@@ -6,7 +6,16 @@ import SwiftUI
 
 @Observable
 public class ReviewItem: Identifiable {
-    
+
+    public let id = UUID()
+    public var name: String = ""
+    public var comment: String = ""
+    public var note: String = ""
+    public var state : CheckState = .Unchecked
+    public var children: [ReviewItem]? = nil
+    public var parent : ReviewItem? = nil
+    public var imageName : String = ""
+        
     init () {
     }
     
@@ -16,15 +25,12 @@ public class ReviewItem: Identifiable {
         self.note = note
     }
     
-    public let id = UUID()
-    public var isChecked : Bool = false;
-    public var name: String = ""
-    public var comment: String = ""
-    public var note: String = ""
-    public var state : CheckState = .Unchecked
-    public var children: [ReviewItem]? = nil
-    public var parent : ReviewItem? = nil
-    public var isExpanded: Bool = false
+    init(name: String, comment: String, note: String, image : String) {
+        self.name = name
+        self.comment = comment
+        self.note = note
+        self.imageName = image
+    }
     
     public func addChild (item : ReviewItem) {
         if self.children == nil {
