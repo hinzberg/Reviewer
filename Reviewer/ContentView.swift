@@ -8,17 +8,27 @@ struct ContentView: View {
     var body: some View {
         
         ReviewItemsTreeTableView(repository: repository)
-            .toolbar (id: "main") {
-                /*
-                ToolbarItem(id: "expand") {
+            .toolbar {
+                
+                ToolbarItemGroup(placement: .principal) {
                     Button(action: {
-                        appState.expandAll.toggle()
+                        //appState.expandAll.toggle()
                     } ) {
-                        Label("Expand all", systemImage: "list.bullet.indent")
+                        Label("Note", systemImage: "quote.bubble")
+                    }
+                    Button(action: {
+                        // Does nothing. Just for show
+                    } ) {
+                        Label("Check all", systemImage: "checklist.checked")
+                    }
+                    Button(action: {
+                        // Does nothing. Just for show
+                    } ) {
+                        Label("Refresh", systemImage: "arrow.2.squarepath")
                     }
                 }
-                */
-                ToolbarItem(id: "inspector") {
+                                
+                ToolbarItemGroup(placement: .primaryAction) {
                     Button(action: {
                         appState.isShowingInspector.toggle()
                     } ) {
@@ -32,5 +42,11 @@ struct ContentView: View {
                     .inspectorColumnWidth(min: 220, ideal: 220, max: 220)
                     .interactiveDismissDisabled()
             }
+            .navigationTitle(getWindowTitleWithVersion())
+    }
+    
+    func getWindowTitleWithVersion() -> String {
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        return "Reviewer - Version \(appVersion!)"
     }
 }

@@ -16,6 +16,9 @@ public class ReviewItemsRepository {
     public var chartDatas = [ReviewChartData]()
     private let checkManager = CheckStateManager()
     
+    // Selected Item, can be set from the TableView
+    public var selectedItem : ReviewItem? = nil
+    
     init () {
         items = []
                 
@@ -34,7 +37,7 @@ public class ReviewItemsRepository {
         item2.addChild(item: subitem2)
         items.append(item2)
         
-        let item3  = ReviewItem(name: "Flight", userComment: "Far above the world", description: "Am I sitting in a tin can", image: "airplane")
+        let item3  = ReviewItem(name: "Flight", userComment: "Far above the world", description: "I am sitting in a tin can", image: "airplane")
         item3.addChild(item: ReviewItem(name: "Flight Sub 1", userComment: "", description:  ""))
         item3.addChild(item: ReviewItem(name: "Flight Sub 2", userComment: "", description:  ""))
         items.append(item3)
